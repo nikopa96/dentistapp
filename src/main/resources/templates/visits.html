@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html lang="et" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title th:text="#{website.title}">website.title</title>
+
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}"/>
+  <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/font-awesome.min.css}"/>
+  <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container">
+  <form action="#" th:action="@{'/visits/search'}" th:method="get">
+    <div class="input-group mb-4">
+      <input type="text" class="form-control" th:placeholder="#{search.placeholder}" th:name="request"
+             aria-describedby="search-button" autocomplete="off">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="submit" id="search-button">
+          <span th:text="#{search.buttonText}"></span>
+          <i class="fa fa-search ml-1"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="card">
+    <div class="card-header" th:text="#{navbar.visits}"></div>
+    <div class="card-body">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th th:text="#{visit.visitId}"></th>
+          <th th:text="#{visit.dentistName}"></th>
+          <th th:text="#{visit.procedureName}"></th>
+          <th th:text="#{visit.detail.date}"></th>
+          <th th:text="#{visit.detail.time}"></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="visit : ${visitsPreviewDTOs}">
+          <td th:text="${visit.visitId}"></td>
+          <td th:text="${visit.dentistName}"></td>
+          <td th:text="${visit.procedureName}"></td>
+          <td th:text="${visit.date}"></td>
+          <td th:text="${visit.time}"></td>
+          <td>
+            <a href="#" th:href="@{'/visit/{visitId}'(visitId = ${visit.visitId})}" class="view-visit-link">
+              <i class="fa fa-eye icon-size mr-1"></i>
+              <span th:text="#{visits.view}"></span>
+            </a>
+          </td>
+          <td>
+            <a href="#" th:href="@{'/visit/{visitId}/edit'(visitId = ${visit.visitId})}" class="edit-visit-link">
+              <i class="fa fa-pencil icon-size mr-1"></i>
+              <span th:text="#{visits.edit}"></span>
+            </a>
+          </td>
+          <td>
+            <form action="#" th:action="@{'/visit/{visitId}/delete'(visitId = ${visit.visitId})}" th:method="delete">
+              <a href="" onclick="this.closest('form').submit();return false;" class="remove-visit-link">
+                <i class="fa fa-trash icon-size mr-1"></i>
+                <span th:text="#{visits.delete}"></span>
+              </a>
+            </form>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+</body>
+</html>

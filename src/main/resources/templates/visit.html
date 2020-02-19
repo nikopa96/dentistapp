@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html lang="et" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title th:text="#{website.title}">website.title</title>
+
+  <link rel="stylesheet" th:href="@{../webjars/bootstrap/4.4.1/css/bootstrap.min.css}"/>
+  <link rel="stylesheet" th:href="@{../webjars/font-awesome/css/font-awesome.min.css}"/>
+  <link rel="stylesheet" th:href="@{../css/style.css}"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container visit-details">
+  <div>
+    <div class="float-right">
+      <a th:href="@{'/visit/{visitId}/edit'(visitId = ${visitDetail.visitId})}" class="btn btn-secondary mr-md-2"
+         role="button">
+        <i class="fa fa-pencil mr-1"></i>
+        <span th:text="#{visits.edit}"></span>
+      </a>
+      <form class="delete-button-form" th:action="@{'/visit/{visitId}/delete'(visitId = ${visitDetail.visitId})}"
+            th:method="delete">
+        <button type="submit" class="btn btn-danger">
+          <i class="fa fa-trash mr-1"></i>
+          <span th:text="#{visits.delete}"></span>
+        </button>
+      </form>
+    </div>
+    <br>
+  </div>
+  <br>
+  <div class="alert alert-success" th:if="${addedSuccessMessage}">
+    <i class="fa fa-check icon-size"></i>
+    <span th:text="#{visit.added.successMessage}"></span>
+  </div>
+  <div class="alert alert-success" th:if="${updatedSuccessMessage}">
+    <i class="fa fa-check icon-size"></i>
+    <span th:text="#{visit.updated.successMessage}"></span>
+  </div>
+  <div class="card mb-4">
+    <div class="card-header card-header-color-blue" th:text="#{visit.detail.header.visitDetail}"></div>
+    <div class="card-body">
+      <div class="row">
+        <dt class="col-sm-4" th:text="#{visitDetail.visit.visitId}"></dt>
+        <dd class="col-sm-8" th:text="${visitDetail.visitId}"></dd>
+
+        <dt class="col-sm-4" th:text="#{visitDetail.visit.date}"></dt>
+        <dd class="col-sm-8" th:text="${visitDetail.date}"></dd>
+
+        <dt class="col-sm-4" th:text="#{visitDetail.visit.time}"></dt>
+        <dd class="col-sm-8" th:text="${visitDetail.time}"></dd>
+      </div>
+    </div>
+  </div>
+  <div class="card mb-4">
+    <div class="card-header card-header-color-green" th:text="#{visit.detail.header.dentistDetail}"></div>
+    <div class="card-body">
+      <div class="row">
+        <dt class="col-sm-4" th:text="#{visitDetail.dentist.dentistId}"></dt>
+        <dd class="col-sm-8" th:text="${visitDetail.dentistId}"></dd>
+
+        <dt class="col-sm-4" th:text="#{visitDetail.dentist.name}"></dt>
+        <dd class="col-sm-8" th:text="${visitDetail.dentistName}"></dd>
+
+        <dt class="col-sm-4" th:text="#{visitDetail.dentist.telephone}"></dt>
+        <dd class="col-sm-8" th:text="${visitDetail.dentistTelephone}"></dd>
+
+        <dt class="col-sm-4" th:text="#{visitDetail.dentist.email}"></dt>
+        <dd class="col-sm-8" th:text="${visitDetail.dentistEmail}"></dd>
+      </div>
+    </div>
+  </div>
+  <div class="card mb-4">
+    <div class="card-header card-header-color-yellow" th:text="#{visit.detail.header.procedureDetail}"></div>
+    <div class="card-body">
+      <div class="row">
+        <dt class="col-sm-4" th:text="#{visitDetail.procedure.procedureId}"></dt>
+        <dd class="col-sm-8" th:text="${visitDetail.procedureId}"></dd>
+
+        <dt class="col-sm-4" th:text="#{visitDetail.procedure.name}"></dt>
+        <dd class="col-sm-8" th:text="${visitDetail.procedureName}"></dd>
+
+        <dt class="col-sm-4" th:text="#{visitDetail.procedure.price}"></dt>
+        <dd class="col-sm-8" th:text="${visitDetail.procedurePrice}"></dd>
+      </div>
+    </div>
+  </div>
+  <div class="card mb-5">
+    <div class="card-header card-header-color-purple" th:text="#{visit.detail.header.clientDetail}"></div>
+    <div class="card-body">
+      <div class="row">
+        <dt class="col-sm-4" th:text="#{visitDetail.client.clientId}"></dt>
+        <dd class="col-sm-8" th:text="${visitDetail.clientId}"></dd>
+
+        <dt class="col-sm-4" th:text="#{visitDetail.client.firstName}"></dt>
+        <dd class="col-sm-8" th:text="${visitDetail.clientFirstName}"></dd>
+
+        <dt class="col-sm-4" th:text="#{visitDetail.client.lastName}"></dt>
+        <dd class="col-sm-8" th:text="${visitDetail.clientLastName}"></dd>
+
+        <dt class="col-sm-4" th:text="#{visitDetail.client.telephone}"></dt>
+        <dd class="col-sm-8" th:text="${visitDetail.clientTelephone}"></dd>
+
+        <dt class="col-sm-4" th:text="#{visitDetail.client.email}"></dt>
+        <dd class="col-sm-8" th:text="${visitDetail.clientEmail}"></dd>
+
+        <dt class="col-sm-4" th:text="#{visitDetail.client.connectionType}"></dt>
+        <dd class="col-sm-8" th:text="${visitDetail.clientConnectionType}"></dd>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" th:src="@{../webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+</body>
+</html>

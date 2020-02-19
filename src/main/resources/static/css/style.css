@@ -1,0 +1,50 @@
+.navbar {
+    margin-bottom: 2em;
+}
+
+.visit-details dt {
+    font-weight: 500;
+    margin-bottom: 0.8em;
+}
+
+.card-header-color-blue {
+    background-color: #d9edf7;
+    color: #31708f;
+}
+
+.card-header-color-green {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+.card-header-color-yellow {
+    background-color: #fcf8e3;
+    color: #8a6d3b;
+}
+
+.card-header-color-purple {
+    background-color: #b321b31c;
+    color: #800080;
+}
+
+.icon-size {
+    font-size: 1.3em;
+}
+
+.view-visit-link {
+    font-weight: 500;
+}
+
+.edit-visit-link {
+    color: #ff9041;
+    font-weight: 500;
+}
+
+.remove-visit-link {
+    color: #ff4141;
+    font-weight: 500;
+}
+
+.delete-button-form {
+    display: inline-block;
+}

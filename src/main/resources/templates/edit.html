@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html lang="et" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title th:text="#{website.title}">website.title</title>
+
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}"/>
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.standalone.css}"/>
+  <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/font-awesome.min.css}"/>
+  <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container">
+  <form action="#" th:action="@{'/visit/{visitId}/edit'(visitId = ${visitCreateDTO.visitId})}"
+        th:object="${visitCreateDTO}"
+        th:method="put">
+    <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('dentistId')}">
+      <i class="fa fa-exclamation-triangle icon-size mr-2"></i>
+      <span th:text="#{registration.visitExists.error}"></span>
+    </div>
+    <div class="card mb-4">
+      <div class="card-header card-header-color-blue" th:text="#{edit.header.visit}"></div>
+      <div class="card-body col-md-6">
+        <div class="form-group">
+          <label for="chooseDoctor" th:text="#{edit.dentistName} + ':'"></label>
+          <select class="custom-select" id="chooseDoctor" th:field="*{dentistId}">
+            <option th:each="dentist : ${visitOptionsDTO.dentistList}" th:text="${'Dr. ' + dentist.name}"
+                    th:value="${dentist.dentistId}"></option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="chooseProcedure" th:text="#{edit.procedureName} + ':'"></label>
+          <select class="custom-select" id="chooseProcedure" th:field="*{procedureId}">
+            <option th:each="procedure : ${visitOptionsDTO.procedureList}" th:text="${procedure.name}"
+                    th:value="${procedure.procedureId}"></option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="chooseDate" th:text="#{edit.date} + ':'"></label>
+          <div class="input-group">
+            <input type="text" class="form-control" id="chooseDate" th:field="*{date}"
+                   th:classappend="${#fields.hasErrors('date')} ? 'is-invalid'"
+                   th:placeholder="#{edit.date}"
+                   autocomplete="off"/>
+            <div class="invalid-feedback order-last" th:errors="*{date}"></div>
+            <div class="input-group-append">
+            <span class="input-group-text" id="basic-addon1">
+              <i class="fa fa-calendar"></i>
+            </span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="chooseTime" th:text="#{edit.time} + ':'"></label>
+          <select class="custom-select" id="chooseTime" th:field="*{time}">
+            <option th:each="time : ${visitOptionsDTO.timeList}" th:text="${time}" th:value="${time}"></option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-4">
+      <div class="card-header card-header-color-purple" th:text="#{edit.header.client}"></div>
+      <div class="card-body col-md-6">
+        <div class="form-group">
+          <label for="firstName" th:text="#{registration.client.firstName} + ':'"></label>
+          <input type="text" class="form-control" id="firstName" th:field="*{clientFirstName}"
+                 th:placeholder="#{registration.client.firstName}"
+                 th:classappend="${#fields.hasErrors('clientFirstName')} ? 'is-invalid'"/>
+          <div class="invalid-feedback" th:errors="*{clientFirstName}"></div>
+        </div>
+        <div class="form-group">
+          <label for="lastName" th:text="#{registration.client.lastName} + ':'"></label>
+          <input type="text" class="form-control" id="lastName" th:field="*{clientLastName}"
+                 th:placeholder="#{registration.client.lastName}"
+                 th:classappend="${#fields.hasErrors('clientLastName')} ? 'is-invalid'"/>
+          <div class="invalid-feedback" th:errors="*{clientLastName}"></div>
+        </div>
+        <div class="form-group">
+          <label for="telephone" th:text="#{registration.client.telephone} + ':'"></label>
+          <input type="text" class="form-control" id="telephone" th:field="*{clientTelephone}"
+                 th:placeholder="#{registration.client.telephone}"
+                 th:classappend="${#fields.hasErrors('clientTelephone')} ? 'is-invalid'"/>
+          <div class="invalid-feedback" th:errors="*{clientTelephone}"></div>
+        </div>
+        <div class="form-group">
+          <label for="email" th:text="#{registration.client.email} + ':'"></label>
+          <input type="text" class="form-control" id="email" th:field="*{clientEmail}"
+                 th:placeholder="#{registration.client.email}"
+                 th:classappend="${#fields.hasErrors('clientEmail')} ? 'is-invalid'"/>
+          <div class="invalid-feedback" th:errors="*{clientEmail}"></div>
+        </div>
+        <div class="form-group">
+          <div class="mb-2" th:text="#{registration.client.connectionType} + ':'"></div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" value="PHONE" th:field="*{clientConnectionType}"
+                   id="connectWithTelephone"
+                   th:classappend="${#fields.hasErrors('clientConnectionType')} ? 'is-invalid'">
+            <label class="form-check-label" for="connectWithTelephone"
+                   th:text="#{registration.client.telephone}"></label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" value="EMAIL" th:field="*{clientConnectionType}"
+                   id="connectWithEmail"
+                   th:classappend="${#fields.hasErrors('clientConnectionType')} ? 'is-invalid'">
+            <label class="form-check-label" for="connectWithEmail" th:text="#{registration.client.email}"></label>
+          </div>
+        </div>
+        <input type="hidden" th:field="*{clientId}">
+      </div>
+    </div>
+    <button type="submit" class="btn btn-success mb-5" th:text="#{edit.save}"></button>
+  </form>
+</div>
+<script type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js}"></script>
+<script type="text/javascript"
+        th:src="@{/webjars/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.et.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/datepicker.js}"></script>
+</body>
+</html>
