@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html lang="et" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title th:text="#{website.title}">website.title</title>
+
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}"/>
+  <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/font-awesome.min.css}"/>
+  <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container">
+  <div class="card">
+    <div class="card-header" th:text="#{not-found.oops}"></div>
+    <div class="card-body" th:text="#{not-found.error}"></div>
+  </div>
+</div>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+</body>
+</html>

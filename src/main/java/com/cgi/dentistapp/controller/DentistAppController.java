@@ -97,6 +97,19 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
         return "visits";
     }
 
+    @GetMapping("/visits/search")
+    public String searchVisit(@RequestParam(value = "request", required = false) String request, Model model) {
+        List<VisitEntity> foundVisits = visitService.getAllVisitsBySearchRequest(request.toLowerCase());
+
+        List<VisitPreviewDTO> foundVisitPreviews = foundVisits.stream()
+                .map(visit -> (VisitPreviewDTO) dtoConverter.convertToDTO(visit, new VisitPreviewDTO()))
+                .collect(Collectors.toList());
+
+        model.addAttribute("visitsPreviewDTOs", foundVisitPreviews);
+
+        return "visits";
+    }
+
     @GetMapping("/visit/{visitId}")
     public String showVisitDetailViewPage(@PathVariable Long visitId, Model model) {
         Optional<VisitEntity> visitOptional = visitService.getVisitId(visitId);
@@ -108,7 +121,7 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
 
             model.addAttribute("visitDetail", visitDetailViewDTO);
         } else {
-            return null;
+            return "not-found";
         }
 
         return "visit";
@@ -125,7 +138,7 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
             model.addAttribute("visitCreateDTO", visitCreateDTO);
             return "edit";
         } else {
-            return null;
+            return "not-found";
         }
     }
 
@@ -162,19 +175,6 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
         visitService.deleteVisit(visitId);
 
         return "redirect:/visits";
-    }
-
-    @GetMapping("/visits/search")
-    public String searchVisit(@RequestParam(value="request", required = false) String request, Model model) {
-        List<VisitEntity> foundVisits = visitService.getAllVisitsBySearchRequest(request.toLowerCase());
-
-        List<VisitPreviewDTO> foundVisitPreviews = foundVisits.stream()
-                .map(visit -> (VisitPreviewDTO) dtoConverter.convertToDTO(visit, new VisitPreviewDTO()))
-                .collect(Collectors.toList());
-
-        model.addAttribute("visitsPreviewDTOs", foundVisitPreviews);
-
-        return "visits";
     }
 
     @ModelAttribute(name = "visitOptionsDTO")

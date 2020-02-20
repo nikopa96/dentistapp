@@ -55,6 +55,10 @@ public class VisitService {
     }
 
     public void deleteVisit(Long visitId) {
-        visitRepository.deleteById(visitId);
+        Optional<VisitEntity> requestedVisit = visitRepository.findById(visitId);
+
+        if (requestedVisit.isPresent()) {
+            visitRepository.deleteById(visitId);
+        }
     }
 }

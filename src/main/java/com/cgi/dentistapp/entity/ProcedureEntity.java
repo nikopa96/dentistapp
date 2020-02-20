@@ -1,13 +1,15 @@
 package com.cgi.dentistapp.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "procedure", schema = "dentistapp")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class ProcedureEntity extends AbstractEntity {
