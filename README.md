@@ -2,7 +2,7 @@
 * **Time spent: total 5 days**: 4 days to write a program (including research and 
 creation of Thymeleaf templates) + 1 day to write unit tests
 * **What was easy?**: Creating Thymeleaf templates using Bootstrap. Сreating Service and Repository classes, 
-writing HQL queries.
+writing HQL queries (Hibernate Query Language).
 * **What was difficult?**: DTO Pattern. I used to work directly with Entity and did not use DTO.
 These articles helped me understand why this pattern is needed:
     * [Why, When and How to Use DTO Projections with JPA and Hibernate](https://thoughts-on-java.org/dto-projections/)
