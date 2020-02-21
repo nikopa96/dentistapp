@@ -16,7 +16,7 @@ import java.util.Date;
 @Setter
 public class VisitCreateDTO extends AbstractDTO {
 
-    private Integer visitId;
+    private Long visitId;
 
     @NotNull
     @DateTimeFormat(pattern = "dd.MM.yyyy")

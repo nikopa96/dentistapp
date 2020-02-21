@@ -271,7 +271,7 @@ public class DentistAppControllerTest {
                 .clientId(2L)
                 .build();
 
-        when(visitRepository.findAllByDentistIdAndDateAndTime(anyInt(), any(), any()))
+        when(visitRepository.findAllByDentistIdAndDateAndTimeWithoutSameVisitId(anyInt(), any(), any(), anyLong()))
                 .thenReturn(Collections.emptyList());
         when(visitRepository.findById(oldVisit.getVisitId())).thenReturn(Optional.of(oldVisit));
         when(clientRepository.findById(oldClient.getClientId())).thenReturn(Optional.of(oldClient));
@@ -292,7 +292,8 @@ public class DentistAppControllerTest {
                 .sessionAttr("visitCreateDTO", new VisitCreateDTO())
         ).andExpect(view().name("redirect:/visit/2"));
 
-        verify(visitRepository, times(1)).findAllByDentistIdAndDateAndTime(anyInt(), any(), any());
+        verify(visitRepository, times(1)).findAllByDentistIdAndDateAndTimeWithoutSameVisitId(
+                anyInt(), any(), any(), anyLong());
         verify(visitRepository, times(1)).findById(oldVisit.getVisitId());
         verify(clientRepository, times(1)).findById(oldClient.getClientId());
         verify(visitRepository, times(1)).save(any());

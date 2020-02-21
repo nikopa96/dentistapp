@@ -31,6 +31,11 @@ public class VisitService {
         return visitRepository.findAllByDentistIdAndDateAndTime(dentistId, date, time);
     }
 
+    public List<VisitEntity> getVisitsByDentistIdAndDateAndTimeWithoutSameVisitId(Integer dentistId, Date date,
+                                                                                  Date time, Long visitId) {
+        return visitRepository.findAllByDentistIdAndDateAndTimeWithoutSameVisitId(dentistId, date, time, visitId);
+    }
+
     public List<VisitEntity> getAllVisitsBySearchRequest(String request) {
         return visitRepository.findAllBySearchRequest(request);
     }

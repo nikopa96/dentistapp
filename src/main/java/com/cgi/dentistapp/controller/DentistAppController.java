@@ -149,8 +149,9 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
             return "edit";
         }
 
-        List<VisitEntity> visitEntities = visitService.getVisitsByDentistIdAndDateAndTime(visitCreateDTO.getDentistId(),
-                visitCreateDTO.getDate(), visitCreateDTO.getTime());
+        List<VisitEntity> visitEntities = visitService.getVisitsByDentistIdAndDateAndTimeWithoutSameVisitId(
+                visitCreateDTO.getDentistId(), visitCreateDTO.getDate(), visitCreateDTO.getTime(),
+                visitCreateDTO.getVisitId());
 
         if (!visitEntities.isEmpty()) {
             bindingResult.addError(new FieldError("visitCreateDTO", "dentistId",
