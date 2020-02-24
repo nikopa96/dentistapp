@@ -16,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -46,11 +45,6 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
     @NonNull
     private DTOConverter dtoConverter;
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/results").setViewName("results");
-    }
-
     @GetMapping("/")
     public String showRegisterForm(@ModelAttribute VisitOptionsDTO visitOptions, VisitCreateDTO visitCreateDTO) {
         return "form";
@@ -63,10 +57,11 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
             return "form";
         }
 
-        List<VisitEntity> visitEntities = visitService.getVisitsByDentistIdAndDateAndTime(visitCreateDTO.getDentistId(),
-                visitCreateDTO.getDate(), visitCreateDTO.getTime());
+        List<VisitEntity> visitsWithSameDentistAndDateAndTime = visitService
+                .getVisitsByDentistIdAndDateAndTime(visitCreateDTO.getDentistId(), visitCreateDTO.getDate(),
+                        visitCreateDTO.getTime());
 
-        if (!visitEntities.isEmpty()) {
+        if (!visitsWithSameDentistAndDateAndTime.isEmpty()) {
             bindingResult.addError(new FieldError("visitCreateDTO", "dentistId",
                     "registration.visitExists.error"));
             return "form";
@@ -149,11 +144,11 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
             return "edit";
         }
 
-        List<VisitEntity> visitEntities = visitService.getVisitsByDentistIdAndDateAndTimeWithoutSameVisitId(
-                visitCreateDTO.getDentistId(), visitCreateDTO.getDate(), visitCreateDTO.getTime(),
-                visitCreateDTO.getVisitId());
+        List<VisitEntity> visitsWithSameDentistAndDateAndTime = visitService
+                .getVisitsByDentistIdAndDateAndTimeWithoutSameVisitId(visitCreateDTO.getDentistId(),
+                        visitCreateDTO.getDate(), visitCreateDTO.getTime(), visitCreateDTO.getVisitId());
 
-        if (!visitEntities.isEmpty()) {
+        if (!visitsWithSameDentistAndDateAndTime.isEmpty()) {
             bindingResult.addError(new FieldError("visitCreateDTO", "dentistId",
                     "registration.visitExists.error"));
             return "edit";
